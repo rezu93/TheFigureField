@@ -2,10 +2,13 @@
 
 namespace TheFigureField
 {
-    public class Informator : FigureField
+    public class Informator
     {
         public string UserChoice { get; set; }
 
+        public double Calculate { get; set; }
+
+        public string Result { get; set; }
 
         public void Start()
         {
@@ -32,57 +35,55 @@ namespace TheFigureField
             }
             else if (UserChoice == "1")
             {
+                var square = new Square();
                 Console.WriteLine("Podaj długość boku kwadratu w cm.");
-                SideA = double.Parse(Console.ReadLine());
-                CalculateSquareField(SideA);
+                square.SideA = double.Parse(Console.ReadLine());
+                Calculate = square.CalculateSquareField();
             }
             else if (UserChoice == "2")
             {
+                var rectangle = new Rectangle();
                 Console.WriteLine("Podaj długość pierwszego boku prostokątu w cm.");
-                SideA = double.Parse(Console.ReadLine());
+                rectangle.SideA = double.Parse(Console.ReadLine());
                 Console.WriteLine("Podaj długość drugiego boku prostokątu w cm.");
-                SideB = double.Parse(Console.ReadLine());
-                CalculateRectangleField(SideA, SideB);
+                rectangle.SideB = double.Parse(Console.ReadLine());
+                Calculate = rectangle.CalculateRectangleField();
             }
             else if (UserChoice == "3")
             {
+                var triangle = new Triangle();
                 Console.WriteLine("Podaj długość podstawy trójkątu w cm.");
-                SideA = double.Parse(Console.ReadLine());
+                triangle.SideA = double.Parse(Console.ReadLine());
                 Console.WriteLine("Podaj wysokość trójkątu w cm.");
-                Height = double.Parse(Console.ReadLine());
-                CalculateTriangleField(SideA, Height);
+                triangle.Height = double.Parse(Console.ReadLine());
+                Calculate = triangle.CalculateTriangleField();
             }
-            else if (UserChoice == "4")
+            else if (UserChoice == "4" || UserChoice == "5")
             {
-                Console.WriteLine("Podaj długość boku równoległoboku w cm.");
-                SideA = double.Parse(Console.ReadLine());
-                Console.WriteLine("Podaj wysokość równoległoboku w cm.");
-                Height = double.Parse(Console.ReadLine());
-                CalculateRhombusField(SideA, Height);
-            }
-            else if (UserChoice == "5")
-            {
-                Console.WriteLine("Podaj długość boku rombu w cm.");
-                SideA = double.Parse(Console.ReadLine());
-                Console.WriteLine("Podaj wysokość rombu w cm.");
-                Height = double.Parse(Console.ReadLine());
-                CalculateRhombusField(SideA, Height);
+                var rhombus = new Rhombus();
+                Console.WriteLine("Podaj długość boku równoległoboku lub rombu w cm.");
+                rhombus.SideA = double.Parse(Console.ReadLine());
+                Console.WriteLine("Podaj wysokość równoległoboku lub rombu w cm.");
+                rhombus.Height = double.Parse(Console.ReadLine());
+                Calculate = rhombus.CalculateRhombusField();
             }
             else if (UserChoice == "6")
             {
+                var trapezoid = new Trapezoid();
                 Console.WriteLine("Podaj pierwszą podstawę trapezu w cm.");
-                SideA = double.Parse(Console.ReadLine());
+                trapezoid.SideA = double.Parse(Console.ReadLine());
                 Console.WriteLine("Podaj drugą podstawę trapezu w cm.");
-                SideB = double.Parse(Console.ReadLine());
+                trapezoid.SideB = double.Parse(Console.ReadLine());
                 Console.WriteLine("Podaj wysokość trapezu w cm.");
-                Height = double.Parse(Console.ReadLine());
-                CalculateTrapezoidField(SideA, SideB, Height);
+                trapezoid.Height = double.Parse(Console.ReadLine());
+                Calculate = trapezoid.CalculateTrapezoidField();
             }
             else if (UserChoice == "7")
             {
+                var circle = new Circle();
                 Console.WriteLine("Podaj długość promienia koła w cm.");
-                Beam = double.Parse(Console.ReadLine());
-                CalculateCircleField(Beam);
+                circle.Beam = double.Parse(Console.ReadLine());
+                Calculate = circle.CalculateCircleField();
             }
             else
             {
@@ -91,16 +92,10 @@ namespace TheFigureField
                 return;
             }
 
-            FigureFieldResult();
-
-        }
-
-        public void FigureFieldResult()
-        {
-            
-            Console.WriteLine("Pole tej figury wynosi: " + Result + "cm2");
+            Result = $"Pole tej figury wynosi: {Calculate} cm2";
+            Console.WriteLine(Result);
             SelectYourFigureToCalculate();
-        }
 
+        }
     }
 }
